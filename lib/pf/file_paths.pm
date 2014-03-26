@@ -54,6 +54,7 @@ our (
     $allowed_device_oui_file, $allowed_device_types_file,
     $cache_control_file,
     $log_conf_dir,
+    $vlan_filters_config_file,
 );
 
 BEGIN {
@@ -86,6 +87,7 @@ BEGIN {
         $allowed_device_oui_file $allowed_device_types_file
         $cache_control_file
         $log_conf_dir
+        $vlan_filters_config_file
     );
 }
 
@@ -126,6 +128,7 @@ $floating_devices_config_file = catfile($conf_dir, "floating_network_device.conf
 $wrix_config_file = catfile($conf_dir, "wrix.conf");
 $allowed_device_oui_file   = catfile($conf_dir,"allowed_device_oui.txt");
 $allowed_device_types_file = catfile($conf_dir,"allowed_device_types.txt");
+$vlan_filters_config_file = catfile($conf_dir, "vlan_filters.conf");
 
 $oui_url               = 'http://standards.ieee.org/regauth/oui/oui.txt';
 $dhcp_fingerprints_url = 'http://www.packetfence.org/dhcp_fingerprints.conf';
@@ -144,7 +147,7 @@ $dhcp_fingerprints_url = 'http://www.packetfence.org/dhcp_fingerprints.conf';
     $oui_file, $floating_devices_file,
     $chi_config_file,$allowed_device_oui_file,$allowed_device_types_file,
     $ui_config_file,$mdm_config_file,$oauth_ip_file,$log_config_file,
-    $admin_roles_config_file,$wrix_config_file
+    $admin_roles_config_file,$wrix_config_file,$vlan_filters_config_file
 );
 
 
