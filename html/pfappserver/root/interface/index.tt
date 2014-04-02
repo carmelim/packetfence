@@ -3,7 +3,9 @@
 [% INCLUDE interface/list.tt %]
 
 [%- IF can_access("INTERFACES_CREATE") %]
+<h3>[% l('Advanced Networking Options') %]</h3>
 <div class="form-actions">
   <a id="createNetwork" class="btn" href="[% c.uri_for(c.controller('Config::Networks').action_for('create')) %]">[% l('Add routed network') %]</a>
+  <a id="createNetwork" class="btn" href="[% c.uri_for(c.controller('Config::HighAvailability').action_for('highavailability')) %]">[% l('High-Availability Support') %]</a>
 </div>
 [%- END %]
