@@ -33,9 +33,18 @@ sub highavailability :Local :Args(0) {
         push @interfaces, { type => $interface->{type}, name => $interface->{name}, ipaddress => $interface->{ipaddress}, netmask => $interface->{netmask} };
     }
 
+    my $hainterface = $c->model("Interface")->getHighAvailabilityInterface('all');
+
     my $form = $c->form("Config::Network::HighAvailability");
     $form->process(init_object => { interfaces => \@interfaces});
     $c->stash(form => $form);
+    $c->stash->{action_uri} = $c->uri_for($self->action_for('update'));
+}
+
+sub update :Local :Args(0) {
+    my ( $self, $c ) = @_;
+
+    
 }
 
 =head1 COPYRIGHT

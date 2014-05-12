@@ -216,7 +216,7 @@ Returns an hashref with:
 Where $interface is physical interface if there's no VLAN interface (eth0)
 and phy.vlan (eth0.100) if there's a vlan interface.
 
-=cut
+=cut
 
 sub get {
     my ( $self, $interface) = @_;
@@ -405,6 +405,39 @@ sub getType {
     # we rewrite inline to inlinel2 for backwwards compatibility
     $type =~ s/inline$/inlinel2/;
     return $type;
+}
+
+=head2 getHighAvailabilityInterface
+
+TODO: This shouldn't be a standalone method. We should integrate the possibility of having multiple type to a single interface
+
+=cut
+sub getHighAvailabilityInterface {
+    my ( $self, $interfaces ) = @_;
+    my $models = $self->{models};
+
+    my @interfaces = $self->_listInterfaces($interfaces);
+
+    my ($status, $type, $name, $interface);
+    foreach my $interface_ref ( @interfaces ) {
+        next if ( $interface_ref->{name} eq "lo" );
+        $name = $interface_ref->{name};
+        $name .= '.' . $interface_ref->{vlan} if ($interface_ref->{vlan});
+        ($status, $interface) = $models->{interface}->read($name);
+
+        if ( is_error($status) ) {
+            $type = 'none';
+        }
+        # rely on pf.conf's info
+        else {
+            $type = $interface->{type};
+            $type = ($type =~ /high-availability|highavailability/i) ? 'high-availability' : 'other';
+        }
+
+        return $name if $type eq "high-availability";
+    }
+
+    return;
 }
 
 =head2 setType
