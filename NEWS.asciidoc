@@ -20,6 +20,8 @@ New Features
 Enhancements
 ++++++++++++
 
+* MariaDB support
+
 Bug Fixes
 +++++++++
 
